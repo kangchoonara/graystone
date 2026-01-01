@@ -365,7 +365,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
@@ -377,23 +377,42 @@
             font-size: 32px;
             font-weight: 700;
             color: white;
-            margin-bottom: 15px;
+            margin-bottom: 0;
+            text-align: left;
             transform: translateY(0);
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
+        }
+
+        .portfolio-divider {
+            width: 60px;
+            height: 2px;
+            background: white;
+            margin: 20px 0;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.5s ease 0.1s;
         }
 
         .portfolio-info {
             color: rgba(255, 255, 255, 0.9);
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.8;
+            text-align: left;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.5s ease;
+            transition: all 0.5s ease 0.2s;
         }
 
         .portfolio-item:hover .portfolio-title,
         .portfolio-item.active .portfolio-title {
-            transform: translateY(-30px);
+            transform: translateY(-80px);
+        }
+
+        .portfolio-item:hover .portfolio-divider,
+        .portfolio-item.active .portfolio-divider {
+            opacity: 1;
+            transform: scaleX(1);
         }
 
         .portfolio-item:hover .portfolio-info,
@@ -403,13 +422,14 @@
         }
 
         .portfolio-info p {
-            margin: 5px 0;
+            margin: 8px 0;
             color: white;
         }
 
         .portfolio-info .location {
             font-size: 14px;
             opacity: 0.8;
+            margin-bottom: 12px;
         }
 
         /* 푸터 스타일 */
@@ -688,9 +708,10 @@
             
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt="에테르노청담" class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80" alt="에테르노청담" class="portfolio-image">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">에테르노청담</h3>
+                        <div class="portfolio-divider"></div>
                         <div class="portfolio-info">
                             <p class="location">서울시 강남구 청담동</p>
                             <p>26세대 · 지하 3층, 지상 10층</p>
@@ -700,9 +721,10 @@
                 </div>
                 
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="루시아청담546더리버" class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="루시아청담546더리버" class="portfolio-image">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">루시아청담546더리버</h3>
+                        <div class="portfolio-divider"></div>
                         <div class="portfolio-info">
                             <p class="location">서울시 강남구 청담동</p>
                             <p>26세대 · 한강 조망</p>
@@ -712,9 +734,10 @@
                 </div>
                 
                 <div class="portfolio-item">
-                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80" alt="워너청담" class="portfolio-image">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80" alt="워너청담" class="portfolio-image">
                     <div class="portfolio-overlay">
                         <h3 class="portfolio-title">워너청담</h3>
+                        <div class="portfolio-divider"></div>
                         <div class="portfolio-info">
                             <p class="location">서울시 강남구 청담동</p>
                             <p>16세대 · 초역세권 입지</p>
