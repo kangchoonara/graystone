@@ -29,8 +29,9 @@
         }
 
         nav.scrolled {
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
@@ -44,14 +45,14 @@
         .logo {
             font-size: 24px;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(200, 200, 200, 0.9);
             text-decoration: none;
             letter-spacing: 1px;
             transition: color 0.3s;
         }
 
         nav.scrolled .logo {
-            color: white;
+            color: #333;
         }
 
         .logo span {
@@ -65,7 +66,7 @@
         }
 
         nav ul li a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(200, 200, 200, 0.9);
             text-decoration: none;
             font-size: 16px;
             font-weight: 500;
@@ -73,7 +74,7 @@
         }
 
         nav.scrolled ul li a {
-            color: white;
+            color: #333;
         }
 
         nav ul li a:hover {
@@ -92,9 +93,13 @@
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: white;
+            background: rgba(200, 200, 200, 0.9);
             transition: all 0.3s ease;
             border-radius: 3px;
+        }
+
+        nav.scrolled .hamburger span {
+            background: #333;
         }
 
         .hamburger.active span:nth-child(1) {
@@ -143,22 +148,34 @@
             background-position: center;
             background-repeat: no-repeat;
             filter: brightness(0.7);
+            animation: zoomIn 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
         }
 
         /* 백그라운드 이미지 설정 - 원하는 이미지 URL로 변경 가능 */
         .slide:nth-child(1) .slide-bg {
-            background-image: url('https://images.unsplash.com/photo-1557821552-17105176677c?w=1920');
-            /* 이미지가 없을 경우 대체 그라데이션 */
+            background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80');
+            /* 현대적인 고층 건물 */
             background-color: #667eea;
         }
 
         .slide:nth-child(2) .slide-bg {
-            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920');
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80');
+            /* 유리 외벽 건물 */
             background-color: #f093fb;
         }
 
         .slide:nth-child(3) .slide-bg {
-            background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920');
+            background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1920&q=80');
+            /* 고급 주거 건물 */
             background-color: #4facfe;
         }
 
@@ -236,8 +253,8 @@
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -245,14 +262,14 @@
             cursor: pointer;
             z-index: 100;
             transition: all 0.3s;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 300;
         }
 
         .slider-arrow:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
             color: white;
         }
 
