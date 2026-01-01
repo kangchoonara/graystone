@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원페이지 웹사이트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 네비게이션 */
+        nav {
+            position: fixed;
+            top: -80px;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 50px;
+            z-index: 1000;
+            transition: top 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        nav.visible {
+            top: 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #4a9eff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4a9eff;
+        }
+
+        /* 햄버거 메뉴 버튼 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* 히어로 슬라이더 */
+        .hero-slider {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.7);
+        }
+
+/* 백그라운드 이미지 설정 - 원하는 이미지 URL로 변경 가능 */
+.slide:nth-child(1) .slide-bg {
+    background-image: url('https://pimg.mk.co.kr/meet/neds/2022/01/image_readtop_2022_5105_16411851054904676.jpg');
+    /* 이미지가 없을 경우 대체 그라데이션 */
+    background-color: #667eea;
+}
+
+.slide:nth-child(2) .slide-bg {
+    background-image: url('https://wimg.heraldcorp.com/news/cms/2025/12/05/news-p.v1.20251128.f6bf102d36dd4f079e4a11dffc941c20_P1.png');
+    background-color: #f093fb;
+}
+
+.slide:nth-child(3) .slide-bg {
+    background-image: url('https://wimg.heraldcorp.com/news/cms/2025/08/07/ams.V01.photo.HDN.P.20210625.202106250000008696248133_P1.jpg');
+    background-color: #4facfe;
+}
+
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease;
+            margin-top: 100px; /* 텍스트를 아래로 이동 - 원하는 만큼 조정 가능 */
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-content h1 {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px 50px;
+            border-radius: 12px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .slide-content p {
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.6;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+        }
+
+        /* 슬라이더 컨트롤 */
+        .slider-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        /* 좌우 화살표 버튼 */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+        }
+
+        .slider-arrow.prev {
+            left: 30px;
+        }
+
+        .slider-arrow.next {
+            right: 30px;
+        }
+
+        /* 콘텐츠 섹션 */
+        .content-section {
+            min-height: 100vh;
+            padding: 100px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .content-wrapper h2 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .content-wrapper p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 푸터 스타일 */
+        footer {
+            background: #1a1a1a;
+            color: #999;
+            padding: 60px 50px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 39px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 26px;
+        }
+
+        .footer-company {
+            text-align: left;
+        }
+
+        .footer-company h3 {
+            color: white;
+            font-size: 22.88px; /* 28.6px * 0.8 */
+            margin-bottom: 26px;
+            font-weight: 600;
+        }
+
+        .footer-info {
+            line-height: 2.34;
+        }
+
+        .footer-info p {
+            font-size: 14.56px; /* 18.2px * 0.8 */
+            color: #999;
+            margin: 6.5px 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .footer-social a {
+            width: 41.6px; /* 52px * 0.8 */
+            height: 41.6px; /* 52px * 0.8 */
+            border: 2px solid #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            text-decoration: none;
+            font-size: 16.64px; /* 20.8px * 0.8 */
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: white;
+            color: #1a1a1a;
+            border-color: white;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 26px;
+            font-size: 13.52px; /* 16.9px * 0.8 */
+            color: #666;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .slide-content {
+                margin-top: 80px;
+            }
+
+            .slide-content h1 {
+                font-size: 40px;
+                padding: 20px 30px;
+            }
+
+            .slide-content p {
+                font-size: 18px;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-container {
+                flex-direction: row;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: right 0.3s ease;
+                padding: 20px;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li a {
+                font-size: 20px;
+            }
+
+            .content-wrapper h2 {
+                font-size: 32px;
+            }
+
+            .content-section {
+                padding: 80px 30px;
+            }
+
+            footer {
+                padding: 50px 30px 25px;
+            }
+
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .slider-arrow.prev {
+                left: 15px;
+            }
+
+            .slider-arrow.next {
+                right: 15px;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-company {
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-info p {
+                font-size: 13.52px; /* 16.9px * 0.8 */
+            }
+
+            .footer-social {
+                gap: 19.5px;
+            }
+
+            .footer-social a {
+                width: 36.4px; /* 45.5px * 0.8 */
+                height: 36.4px; /* 45.5px * 0.8 */
+                font-size: 14.56px; /* 18.2px * 0.8 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">MY<span>BRAND</span></a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 히어로 슬라이더 -->
+    <section class="hero-slider" id="home">
+        <div class="slide active">
+            <div class="slide-bg"></div>
+            <div class="slide-content">
+                <h1>혁신적인 솔루션</h1>
+                <p>당신의 비즈니스를 다음 단계로 이끌어갈 최고의 파트너</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg"></div>
+            <div class="slide-content">
+                <h1>창의적인 디자인</h1>
+                <p>사용자 경험을 최우선으로 하는 아름다운 인터페이스</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg"></div>
+            <div class="slide-content">
+                <h1>완벽한 기술력</h1>
+                <p>최신 기술과 전문성으로 구현하는 완성도 높은 프로젝트</p>
+            </div>
+        </div>
+        
+        <!-- 좌우 화살표 -->
+        <div class="slider-arrow prev">‹</div>
+        <div class="slider-arrow next">›</div>
+        
+        <div class="slider-controls">
+            <div class="slider-dot active" data-slide="0"></div>
+            <div class="slider-dot" data-slide="1"></div>
+            <div class="slider-dot" data-slide="2"></div>
+        </div>
+    </section>
+
+    <!-- 콘텐츠 섹션 -->
+    <section class="content-section" id="about">
+        <div class="content-wrapper">
+            <h2>About Us</h2>
+            <p>우리는 고객의 성공을 위해 최선을 다하는 전문가 그룹입니다. 10년 이상의 경험과 노하우로 최고의 서비스를 제공합니다.</p>
+        </div>
+    </section>
+
+    <section class="content-section" id="services">
+        <div class="content-wrapper">
+            <h2>Our Services</h2>
+            <p>웹 개발, 모바일 앱 개발, UI/UX 디자인, 브랜딩, 마케팅 등 다양한 분야에서 전문적인 서비스를 제공합니다.</p>
+        </div>
+    </section>
+
+    <section class="content-section" id="contact">
+        <div class="content-wrapper">
+            <h2>Contact Us</h2>
+            <p>프로젝트 문의나 협업 제안이 있으시다면 언제든지 연락 주세요. 최선을 다해 답변드리겠습니다.</p>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-company">
+                    <h3>(주)그레이스톤자산관리</h3>
+                    <div class="footer-info">
+                        <p>대표이사 : 현정원</p>
+                        <p>전화번호 : #########</p>
+                        <p>서울특별시 강남구 언주로 563, 102동 211호(역삼동, 원에디션강남)</p>
+                        <p>사업자등록번호 : 703-81-02367</p>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="#" aria-label="네이버">N</a>
+                    <a href="#" aria-label="인스타그램">I</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>©GrayStone Asset Management. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 슬라이더 자동 재생
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const totalSlides = slides.length;
+        const heroSlider = document.querySelector('.hero-slider');
+        const prevArrow = document.querySelector('.slider-arrow.prev');
+        const nextArrow = document.querySelector('.slider-arrow.next');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // 5초마다 자동 슬라이드
+        let autoSlide = setInterval(nextSlide, 5000);
+
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(nextSlide, 5000);
+        }
+
+        // 화살표 클릭 이벤트
+        prevArrow.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        nextArrow.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        // 닷 클릭 이벤트
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                resetAutoSlide();
+            });
+        });
+
+        // 터치 이벤트 (모바일 플리킹)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        heroSlider.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        heroSlider.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diffX = touchStartX - touchEndX;
+            const diffY = Math.abs(touchStartY - touchEndY);
+            
+            // 수평 스와이프가 수직 스와이프보다 클 때만 작동
+            if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
+                if (diffX > 0) {
+                    // 왼쪽으로 스와이프 - 다음 슬라이드
+                    nextSlide();
+                } else {
+                    // 오른쪽으로 스와이프 - 이전 슬라이드
+                    prevSlide();
+                }
+                resetAutoSlide();
+            }
+        }
+
+        // 키보드 화살표 키 지원
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                resetAutoSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                resetAutoSlide();
+            }
+        });
+
+        // 스크롤 시 네비게이션 표시
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('visible');
+            } else {
+                navbar.classList.remove('visible');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 햄버거 메뉴 토글
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // 메뉴 클릭 시 닫기
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 메뉴 외부 클릭 시 닫기
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
