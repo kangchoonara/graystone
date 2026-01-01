@@ -674,17 +674,25 @@
         // 스크롤 시 네비게이션 표시
         const navbar = document.getElementById('navbar');
         let lastScroll = 0;
+        let ticking = false;
 
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                navbar.classList.add('visible');
-            } else {
-                navbar.classList.remove('visible');
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    
+                    // 100px 이상 스크롤 시 항상 메뉴 표시
+                    if (currentScroll > 100) {
+                        navbar.classList.add('visible');
+                    } else {
+                        navbar.classList.remove('visible');
+                    }
+                    
+                    lastScroll = currentScroll;
+                    ticking = false;
+                });
+                ticking = true;
             }
-            
-            lastScroll = currentScroll;
         });
 
         // 부드러운 스크롤
