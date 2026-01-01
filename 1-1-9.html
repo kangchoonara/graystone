@@ -19,18 +19,19 @@
         /* 네비게이션 */
         nav {
             position: fixed;
-            top: -80px;
+            top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.9);
             padding: 20px 50px;
             z-index: 1000;
-            transition: top 0.3s ease;
-            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(0px);
         }
 
-        nav.visible {
-            top: 0;
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
@@ -42,14 +43,35 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            letter-spacing: 1px;
+            transition: opacity 0.3s;
         }
 
-        .logo span {
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            transition: all 0.3s;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: rgba(200, 200, 200, 0.9);
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        nav.scrolled .logo-text {
+            color: #333;
+        }
+
+        .logo-text span {
             color: #4a9eff;
         }
 
@@ -60,11 +82,15 @@
         }
 
         nav ul li a {
-            color: white;
+            color: rgba(200, 200, 200, 0.9);
             text-decoration: none;
             font-size: 16px;
             font-weight: 500;
             transition: color 0.3s;
+        }
+
+        nav.scrolled ul li a {
+            color: #333;
         }
 
         nav ul li a:hover {
@@ -83,9 +109,13 @@
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: white;
+            background: rgba(200, 200, 200, 0.9);
             transition: all 0.3s ease;
             border-radius: 3px;
+        }
+
+        nav.scrolled .hamburger span {
+            background: #333;
         }
 
         .hamburger.active span:nth-child(1) {
@@ -134,24 +164,36 @@
             background-position: center;
             background-repeat: no-repeat;
             filter: brightness(0.7);
+            animation: zoomIn 20s ease-in-out infinite alternate;
         }
 
-/* 백그라운드 이미지 설정 - 원하는 이미지 URL로 변경 가능 */
-.slide:nth-child(1) .slide-bg {
-    background-image: url('https://pimg.mk.co.kr/meet/neds/2022/01/image_readtop_2022_5105_16411851054904676.jpg');
-    /* 이미지가 없을 경우 대체 그라데이션 */
-    background-color: #667eea;
-}
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
 
-.slide:nth-child(2) .slide-bg {
-    background-image: url('https://wimg.heraldcorp.com/news/cms/2025/12/05/news-p.v1.20251128.f6bf102d36dd4f079e4a11dffc941c20_P1.png');
-    background-color: #f093fb;
-}
+        /* 백그라운드 이미지 설정 - 원하는 이미지 URL로 변경 가능 */
+        .slide:nth-child(1) .slide-bg {
+            background-image: url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80');
+            /* 현대적인 고층 건물 */
+            background-color: #667eea;
+        }
 
-.slide:nth-child(3) .slide-bg {
-    background-image: url('https://wimg.heraldcorp.com/news/cms/2025/08/07/ams.V01.photo.HDN.P.20210625.202106250000008696248133_P1.jpg');
-    background-color: #4facfe;
-}
+        .slide:nth-child(2) .slide-bg {
+            background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80');
+            /* 유리 외벽 건물 */
+            background-color: #f093fb;
+        }
+
+        .slide:nth-child(3) .slide-bg {
+            background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1920&q=80');
+            /* 고급 주거 건물 */
+            background-color: #4facfe;
+        }
 
         .slide-content {
             position: relative;
@@ -161,7 +203,7 @@
             max-width: 800px;
             padding: 0 20px;
             animation: fadeInUp 1s ease;
-            margin-top: 100px; /* 텍스트를 아래로 이동 - 원하는 만큼 조정 가능 */
+            margin-top: 500px; /* 텍스트를 아래로 이동 - 원하는 만큼 조정 가능 */
         }
 
         @keyframes fadeInUp {
@@ -207,17 +249,17 @@
         }
 
         .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.4);
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .slider-dot.active {
             background: white;
-            transform: scale(1.3);
+            width: 40px;
         }
 
         /* 좌우 화살표 버튼 */
@@ -227,8 +269,8 @@
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.25);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -236,14 +278,15 @@
             cursor: pointer;
             z-index: 100;
             transition: all 0.3s;
-            color: white;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 300;
         }
 
         .slider-arrow:hover {
-            background: rgba(255, 255, 255, 0.9);
-            color: #000;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
         }
 
         .slider-arrow.prev {
@@ -284,6 +327,89 @@
             color: #666;
             max-width: 800px;
             margin: 0 auto;
+        }
+
+        /* 포트폴리오 스타일 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 60px auto 0;
+        }
+
+        .portfolio-item {
+            position: relative;
+            min-width: 330px;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            transition: all 0.5s ease;
+        }
+
+        .portfolio-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            transform: translateY(0);
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-info {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-title,
+        .portfolio-item.active .portfolio-title {
+            transform: translateY(-30px);
+        }
+
+        .portfolio-item:hover .portfolio-info,
+        .portfolio-item.active .portfolio-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .portfolio-info p {
+            margin: 5px 0;
+            color: white;
+        }
+
+        .portfolio-info .location {
+            font-size: 14px;
+            opacity: 0.8;
         }
 
         /* 푸터 스타일 */
@@ -365,7 +491,7 @@
         /* 반응형 */
         @media (max-width: 768px) {
             .slide-content {
-                margin-top: 80px;
+                margin-top: 300px;
             }
 
             .slide-content h1 {
@@ -386,6 +512,14 @@
             }
 
             .logo {
+                font-size: 20px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .logo-text {
                 font-size: 20px;
             }
 
@@ -429,17 +563,7 @@
             }
 
             .slider-arrow {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-
-            .slider-arrow.prev {
-                left: 15px;
-            }
-
-            .slider-arrow.next {
-                right: 15px;
+                display: none;
             }
 
             .footer-top {
@@ -468,6 +592,24 @@
                 height: 36.4px; /* 45.5px * 0.8 */
                 font-size: 14.56px; /* 18.2px * 0.8 */
             }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .portfolio-item {
+                height: 400px;
+            }
+
+            .portfolio-title {
+                font-size: 24px;
+            }
+
+            .portfolio-overlay {
+                padding: 30px;
+            }
         }
     </style>
 </head>
@@ -475,7 +617,13 @@
     <!-- 네비게이션 -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo">MY<span>BRAND</span></a>
+            <a href="#home" class="logo">
+                <!-- 로고 이미지 사용 시: 아래 img 태그의 주석을 해제하고 src에 이미지 URL 입력 -->
+                <!-- <img src="your-logo.png" alt="Logo"> -->
+                
+                <!-- 텍스트 로고 사용 시: 아래 코드 사용 -->
+                <span class="logo-text">MY<span>BRAND</span></span>
+            </a>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -484,7 +632,7 @@
             <ul id="navMenu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -495,27 +643,29 @@
         <div class="slide active">
             <div class="slide-bg"></div>
             <div class="slide-content">
-                <h1>워너 청담</h1>
-                <p>국내 최초 스카이가라지(Sky Garage) 시스템으로 슈퍼카를 집 안으로
-                  <br>최고가 슈퍼 펜트하우스 분양가
-                </p>
+                <h1>혁신적인 솔루션</h1>
+                <p>당신의 비즈니스를 다음 단계로 이끌어갈 최고의 파트너</p>
             </div>
         </div>
         <div class="slide">
             <div class="slide-bg"></div>
             <div class="slide-content">
-                <h1>루시아 청담 546 더리버</h1>
-                <p>도산대로의 랜드마크 설계, 모든 세대가 한강 조망권을 갖춘 희소성 높은 하이엔드 주거시설</p>
+                <h1>창의적인 디자인</h1>
+                <p>사용자 경험을 최우선으로 하는 아름다운 인터페이스</p>
             </div>
         </div>
         <div class="slide">
             <div class="slide-bg"></div>
             <div class="slide-content">
-                <h1>에테르노 청담</h1>
-                <p>청담동 한강변 초고가 아파트<br>
-                  세계적인 건축가 ** 라파엘 모네오 **가 디자인한 품격 높은 외곤과 강변 조망이 특징, 연예인등 유명인들의 선택</p>
+                <h1>완벽한 기술력</h1>
+                <p>최신 기술과 전문성으로 구현하는 완성도 높은 프로젝트</p>
             </div>
         </div>
+        
+        <!-- 좌우 화살표 -->
+        <div class="slider-arrow prev">‹</div>
+        <div class="slider-arrow next">›</div>
+        
         <div class="slider-controls">
             <div class="slider-dot active" data-slide="0"></div>
             <div class="slider-dot" data-slide="1"></div>
@@ -531,10 +681,48 @@
         </div>
     </section>
 
-    <section class="content-section" id="services">
+    <section class="content-section" id="portfolio">
         <div class="content-wrapper">
-            <h2>Our Services</h2>
-            <p>웹 개발, 모바일 앱 개발, UI/UX 디자인, 브랜딩, 마케팅 등 다양한 분야에서 전문적인 서비스를 제공합니다.</p>
+            <h2>Portfolio</h2>
+            <p>전문성과 혁신으로 완성한 프리미엄 주거 공간을 소개합니다</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80" alt="에테르노청담" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">에테르노청담</h3>
+                        <div class="portfolio-info">
+                            <p class="location">서울시 강남구 청담동</p>
+                            <p>26세대 · 지하 3층, 지상 10층</p>
+                            <p>최고급 마감재 · 스마트홈 시스템</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80" alt="루시아청담546더리버" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">루시아청담546더리버</h3>
+                        <div class="portfolio-info">
+                            <p class="location">서울시 강남구 청담동</p>
+                            <p>26세대 · 한강 조망</p>
+                            <p>프리미엄 커뮤니티 시설</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80" alt="워너청담" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">워너청담</h3>
+                        <div class="portfolio-info">
+                            <p class="location">서울시 강남구 청담동</p>
+                            <p>16세대 · 초역세권 입지</p>
+                            <p>럭셔리 인테리어 · 컨시어지 서비스</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -672,17 +860,25 @@
         // 스크롤 시 네비게이션 표시
         const navbar = document.getElementById('navbar');
         let lastScroll = 0;
+        let ticking = false;
 
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 100) {
-                navbar.classList.add('visible');
-            } else {
-                navbar.classList.remove('visible');
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    
+                    // 스크롤 시 배경 추가
+                    if (currentScroll > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    
+                    lastScroll = currentScroll;
+                    ticking = false;
+                });
+                ticking = true;
             }
-            
-            lastScroll = currentScroll;
         });
 
         // 부드러운 스크롤
@@ -722,6 +918,25 @@
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             }
+        });
+
+        // 모바일 포트폴리오 아이템 클릭 토글
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        portfolioItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 모바일에서만 토글 작동
+                if (window.innerWidth <= 768) {
+                    // 다른 아이템들의 active 제거
+                    portfolioItems.forEach(other => {
+                        if (other !== this) {
+                            other.classList.remove('active');
+                        }
+                    });
+                    // 현재 아이템 토글
+                    this.classList.toggle('active');
+                }
+            });
         });
     </script>
 </body>
