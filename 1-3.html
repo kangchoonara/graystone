@@ -427,33 +427,29 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease 0.2s;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 20px;
         }
 
         .portfolio-info-text {
-            flex: 1;
+            margin-bottom: 15px;
         }
 
         .portfolio-more-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 14px;
+            padding: 8px 18px;
+            border-radius: 16px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
-            white-space: nowrap;
-            flex-shrink: 0;
+            display: inline-block;
         }
 
         .portfolio-more-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
         }
 
         .portfolio-item:hover .portfolio-title,
