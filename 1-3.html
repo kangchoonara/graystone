@@ -427,12 +427,17 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+        }
+
+        .portfolio-info-text {
+            flex: 1;
         }
 
         .portfolio-more-btn {
-            position: absolute;
-            bottom: 40px;
-            right: 40px;
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.5);
             color: white;
@@ -440,9 +445,10 @@
             border-radius: 20px;
             font-size: 14px;
             cursor: pointer;
-            opacity: 0;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         .portfolio-more-btn:hover {
@@ -466,11 +472,6 @@
         .portfolio-item.active .portfolio-info {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        .portfolio-item:hover .portfolio-more-btn,
-        .portfolio-item.active .portfolio-more-btn {
-            opacity: 1;
         }
 
         .portfolio-info p {
@@ -1118,13 +1119,15 @@
                 <div class="portfolio-item">
                     <img src="https://www.hdec.kr/FileContents/EditorImg/20220602/20201014_%EC%97%90%ED%85%8C%EB%A5%B4%EB%85%B8%20%EC%B2%AD%EB%8B%B4_%ED%85%8C%EB%9D%BC%EC%8A%A4%20%EB%8F%99%EC%B8%A1%ED%88%AC%EC%8B%9C%EB%8F%84_01_770.jpg" alt="에테르노청담" class="portfolio-image">
                     <div class="portfolio-overlay">
-                        <button class="portfolio-more-btn" data-project="eterno">더보기</button>
                         <h3 class="portfolio-title">에테르노청담</h3>
                         <div class="portfolio-divider"></div>
                         <div class="portfolio-info">
-                            <p class="location">서울시 강남구 청담동 한강변</p>
-                            <p>26세대 · 지하 3층, 지상 10층</p>
-                            <p>라파엘 모네오 설계 · 연예인 다수 거주</p>
+                            <div class="portfolio-info-text">
+                                <p class="location">서울시 강남구 청담동 한강변</p>
+                                <p>26세대 · 지하 3층, 지상 10층</p>
+                                <p>라파엘 모네오 설계 · 연예인 다수 거주</p>
+                            </div>
+                            <button class="portfolio-more-btn" data-project="eterno">더보기</button>
                         </div>
                     </div>
                 </div>
@@ -1132,13 +1135,15 @@
                 <div class="portfolio-item">
                     <img src="https://skincareshop114.cafe24.com/wp-content/uploads/2024/03/15.jpg" alt="루시아청담546더리버" class="portfolio-image">
                     <div class="portfolio-overlay">
-                        <button class="portfolio-more-btn" data-project="lucia">더보기</button>
                         <h3 class="portfolio-title">루시아청담546더리버</h3>
                         <div class="portfolio-divider"></div>
                         <div class="portfolio-info">
-                            <p class="location">서울시 강남구 청담동 도산대로</p>
-                            <p>26세대 · 전 세대 한강 조망</p>
-                            <p>랜드마크 설계 · 프리미엄 커뮤니티</p>
+                            <div class="portfolio-info-text">
+                                <p class="location">서울시 강남구 청담동 도산대로</p>
+                                <p>26세대 · 전 세대 한강 조망</p>
+                                <p>랜드마크 설계 · 프리미엄 커뮤니티</p>
+                            </div>
+                            <button class="portfolio-more-btn" data-project="lucia">더보기</button>
                         </div>
                     </div>
                 </div>
@@ -1146,13 +1151,15 @@
                 <div class="portfolio-item">
                     <img src="https://thumbnews.nateimg.co.kr/view610///news.nateimg.co.kr/orgImg/nt/2022/04/21/16505039746260b12693675.jpg" alt="워너청담" class="portfolio-image">
                     <div class="portfolio-overlay">
-                        <button class="portfolio-more-btn" data-project="warner">더보기</button>
                         <h3 class="portfolio-title">워너청담</h3>
                         <div class="portfolio-divider"></div>
                         <div class="portfolio-info">
-                            <p class="location">서울시 강남구 청담동</p>
-                            <p>16세대 · 스카이가라지 시스템</p>
-                            <p>슈퍼카 전용 주차 · 컨시어지 서비스</p>
+                            <div class="portfolio-info-text">
+                                <p class="location">서울시 강남구 청담동</p>
+                                <p>16세대 · 스카이가라지 시스템</p>
+                                <p>슈퍼카 전용 주차 · 컨시어지 서비스</p>
+                            </div>
+                            <button class="portfolio-more-btn" data-project="warner">더보기</button>
                         </div>
                     </div>
                 </div>
