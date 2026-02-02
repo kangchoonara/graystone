@@ -2,6 +2,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그레이스톤 자산관리 - 하이퍼엔드 주거관리 전문 기업</title>
+    <!-- 필수는 og 태그 -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.graystone.kr">
     <meta property="og:title" content="대한민국 최상위 주거시설이 선택한 관리 회사. 그레이스톤자산관리">
@@ -10,8 +13,10 @@
     <meta property="og:site_name" content="(주)그레이스톤자산관리">
     <meta property="og:locale" content="en_US">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRAYSTONE - 홈페이지 준비중</title>
+    <!-- 필수는 아니지만, 추천하는 og 태그 -->
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
     <style>
         * {
             margin: 0;
@@ -20,149 +25,202 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 네비게이션 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(0px);
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            overflow: hidden;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .container {
-            text-align: center;
-            color: white;
-            padding: 40px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo-container {
+        .logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 50px;
-            animation: fadeInDown 1s ease-out;
+            text-decoration: none;
+            transition: opacity 0.3s;
         }
 
-        .logo-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 8px;
-            height: 100px;
+        .logo:hover {
+            opacity: 0.8;
         }
 
-        .bar {
-            width: 18px;
-            background: white;
-            border-radius: 2px 2px 0 0;
-            animation: growUp 1.5s ease-out;
+        .logo img {
+            height: 40px;
+            width: auto;
+            transition: all 0.3s;
         }
-
-        .bar:nth-child(1) { height: 100px; animation-delay: 0.1s; }
-        .bar:nth-child(2) { height: 70px; animation-delay: 0.2s; }
-        .bar:nth-child(3) { height: 45px; animation-delay: 0.3s; }
-        .bar:nth-child(4) { height: 30px; animation-delay: 0.4s; }
-        .bar:nth-child(5) { height: 55px; animation-delay: 0.5s; }
 
         .logo-text {
-            font-size: 64px;
-            font-weight: bold;
-            letter-spacing: 4px;
-            color: white;
+            font-size: 24px;
+            font-weight: 700;
+            color: rgba(200, 200, 200, 0.9);
+            letter-spacing: 1px;
+            transition: color 0.3s;
         }
 
-        h1 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 300;
-            animation: fadeIn 1.5s ease-out 0.5s both;
+        nav.scrolled .logo-text {
+            color: #333;
         }
 
-        p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            animation: fadeIn 1.5s ease-out 0.8s both;
+        .logo-text span {
+            color: #4a9eff;
         }
 
-        .progress-container {
-            max-width: 500px;
-            margin: 0 auto 30px;
-            animation: fadeIn 1.5s ease-out 1s both;
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 40px;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: white;
-            border-radius: 10px;
-            animation: progressLoad 2s ease-out 1.2s both;
-            width: 0%;
-        }
-
-        .contact-info {
-            margin-top: 40px;
-            font-size: 16px;
-            opacity: 0.8;
-            animation: fadeIn 1.5s ease-out 1.5s both;
-        }
-
-        .contact-info a {
-            color: white;
+        nav ul li a {
+            color: rgba(200, 200, 200, 0.9);
             text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            transition: border-color 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        .contact-info a:hover {
-            border-bottom-color: white;
+        nav.scrolled ul li a {
+            color: #333;
         }
 
-        /* Floating particles */
-        .particle {
+        nav ul li a:hover {
+            color: #4a9eff;
+        }
+
+        /* 햄버거 메뉴 버튼 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: rgba(200, 200, 200, 0.9);
+            transition: all 0.3s ease;
+            border-radius: 3px;
+        }
+
+        nav.scrolled .hamburger span {
+            background: #333;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* 히어로 슬라이더 */
+        .hero-slider {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .slide {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: float 20s infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .particle:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
+        .slide.active {
+            opacity: 1;
         }
 
-        .particle:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            top: 60%;
-            left: 80%;
-            animation-delay: 3s;
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.7);
+            animation: zoomIn 20s ease-in-out infinite alternate;
         }
 
-        .particle:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            top: 80%;
-            left: 20%;
-            animation-delay: 6s;
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
         }
 
-        @keyframes fadeInDown {
+        /* 백그라운드 이미지 설정 - 원하는 이미지 URL로 변경 가능 */
+        .slide:nth-child(1) .slide-bg {
+            background-image: url('./main_img_n031698211709.png');
+            /* 이미지가 없을 경우 대체 그라데이션 */
+            background-color: #ffffff;
+        }
+        
+        .slide:nth-child(2) .slide-bg {
+            background-image: url('./luxia_a.jpg');
+            background-color: #ffffff;
+        }
+        
+        .slide:nth-child(3) .slide-bg {
+            background-image: url('./et.jpg');
+            background-color: #ffffff;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 20px;
+            animation: fadeInUp 1s ease;
+            margin-top: 500px; /* 텍스트를 아래로 이동 - 원하는 만큼 조정 가능 */
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -170,105 +228,1305 @@
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+        .slide-content h1 {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px 50px;
+            border-radius: 12px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
-        @keyframes growUp {
-            from {
-                height: 0;
-            }
+        .slide-content p {
+            font-size: 24px;
+            font-weight: 300;
+            line-height: 1.6;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
         }
 
-        @keyframes progressLoad {
-            to {
-                width: 75%;
-            }
+        /* 슬라이더 컨트롤 */
+        .slider-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 15px;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-30px) translateX(20px);
-            }
-            50% {
-                transform: translateY(-10px) translateX(-20px);
-            }
-            75% {
-                transform: translateY(-40px) translateX(10px);
-            }
+        .slider-dot {
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.4);
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
+        .slider-dot:hover {
+            background: rgba(255,255,255,0.7);
+        }
+
+        .slider-dot.active {
+            background: white;
+            width: 40px;
+        }
+
+        /* 좌우 화살표 버튼 */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 0.5px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .slider-arrow:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: white;
+        }
+
+        .slider-arrow.prev {
+            left: 30px;
+        }
+
+        .slider-arrow.next {
+            right: 30px;
+        }
+
+        /* 콘텐츠 섹션 */
+        .content-section {
+            padding: 100px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-section.short {
+            min-height: 60vh;
+        }
+
+        .content-section.medium {
+            min-height: 80vh;
+        }
+
+        .content-section.tall {
+            min-height: 100vh;
+        }
+
+        .content-section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .content-wrapper h2 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .content-wrapper p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 포트폴리오 스타일 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 60px auto 0;
+        }
+
+        .portfolio-item {
+            position: relative;
+            min-width: 330px;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.05);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+            transition: all 0.5s ease;
+        }
+
+        .portfolio-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0;
+            text-align: left;
+            position: absolute;
+            bottom: 100px;
+            left: 40px;
+            right: 40px;
+            transition: all 0.5s ease;
+        }
+
+        .portfolio-divider {
+            width: 60px;
+            height: 2px;
+            background: white;
+            position: absolute;
+            bottom: 60px;
+            left: 40px;
+            opacity: 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: all 0.5s ease 0.1s;
+        }
+
+        .portfolio-info {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            line-height: 1.8;
+            text-align: left;
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.2s;
+        }
+
+        .portfolio-info-text {
+            margin-bottom: 15px;
+        }
+
+        .portfolio-more-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: inline-block;
+        }
+
+        .portfolio-more-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .portfolio-item:hover .portfolio-title,
+        .portfolio-item.active .portfolio-title {
+            bottom: 240px;
+        }
+
+        .portfolio-item:hover .portfolio-divider,
+        .portfolio-item.active .portfolio-divider {
+            opacity: 1;
+            transform: scaleX(1);
+            bottom: 200px;
+        }
+
+        .portfolio-item:hover .portfolio-info,
+        .portfolio-item.active .portfolio-info {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .portfolio-info p {
+            margin: 8px 0;
+            color: white;
+        }
+
+        .portfolio-info .location {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+
+        /* 팝업 모달 */
+        .popup-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-modal.active {
+            display: flex;
+        }
+
+        .popup-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: #000;
+        }
+
+        .popup-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .popup-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-slide.active {
+            opacity: 1;
+        }
+
+        .popup-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .popup-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+
+        .popup-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .popup-arrow.prev {
+            left: 20px;
+        }
+
+        .popup-arrow.next {
+            right: 20px;
+        }
+
+        .popup-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .popup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .popup-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* 강점 섹션 - 현대카드 스타일 */
+        .strengths-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        .strengths-title {
+            text-align: center;
+            margin-bottom: 120px;
+        }
+
+        .strengths-title h2 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            color: #000;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .strengths-title p {
+            font-size: 18px;
+            color: #666;
+            font-weight: 300;
+        }
+
+        .strengths-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            margin-bottom: 80px;
+        }
+
+        .strength-item {
+            padding: 60px 40px;
+            border-right: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .strength-item:nth-child(4n) {
+            border-right: none;
+        }
+
+        .strength-item:nth-child(n+9) {
+            border-bottom: none;
+        }
+
+        .strength-item:hover {
+            background: #000;
+        }
+
+        .strength-item:hover .strength-number,
+        .strength-item:hover .strength-keyword,
+        .strength-item:hover .strength-description {
+            color: #fff;
+        }
+
+        .strength-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #999;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .strength-keyword {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+            transition: color 0.3s ease;
+        }
+
+        .strength-description {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        /* 푸터 스타일 */
+        footer {
+            background: #1a1a1a;
+            color: #999;
+            padding: 60px 50px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 39px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 26px;
+        }
+
+        .footer-company {
+            text-align: left;
+        }
+
+        .footer-company h3 {
+            color: white;
+            font-size: 22.88px; /* 28.6px * 0.8 */
+            margin-bottom: 26px;
+            font-weight: 600;
+        }
+
+        .footer-info {
+            line-height: 1.8;
+        }
+
+        .footer-info p {
+            font-size: 11.56px; /* 18.2px * 0.8 */
+            color: #999;
+            margin: 6.5px 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .footer-social a {
+            width: 41.6px; /* 52px * 0.8 */
+            height: 41.6px; /* 52px * 0.8 */
+            border: 2px solid #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            text-decoration: none;
+            font-size: 16.64px; /* 20.8px * 0.8 */
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: white;
+            color: #1a1a1a;
+            border-color: white;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 26px;
+            font-size: 13.52px; /* 16.9px * 0.8 */
+            color: #666;
+        }
+
+        /* 반응형 */
         @media (max-width: 768px) {
-            .logo-text {
-                font-size: 36px;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            p {
-                font-size: 16px;
+            .slide-content {
+                margin-top: 300px;
             }
 
-            .logo-container {
+            .slide-content h1 {
+                font-size: 40px;
+                padding: 20px 30px;
+            }
+
+            .slide-content p {
+                font-size: 18px;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-container {
+                flex-direction: row;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.98);
                 flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: right 0.3s ease;
+                padding: 20px;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li a {
+                font-size: 20px;
+            }
+
+            .content-wrapper h2 {
+                font-size: 32px;
+            }
+
+            .content-section {
+                padding: 80px 30px;
+            }
+
+            footer {
+                padding: 50px 30px 25px;
+            }
+
+            .slider-arrow {
+                display: none;
+            }
+
+            .footer-top {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-company {
+                text-align: left;
+                width: 100%;
+            }
+
+            .footer-company h3 {
+                text-align: left;
+            }
+
+            .footer-info {
+                text-align: left;
+            }
+
+            .footer-social {
+                justify-content: flex-start;
+            }
+
+            .footer-copyright {
+                text-align: left;
+            }
+
+            .footer-info p {
+                font-size: 13.52px; /* 16.9px * 0.8 */
+            }
+
+            .footer-social {
+                gap: 19.5px;
+            }
+
+            .footer-social a {
+                width: 36.4px; /* 45.5px * 0.8 */
+                height: 36.4px; /* 45.5px * 0.8 */
+                font-size: 14.56px; /* 18.2px * 0.8 */
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 20px;
+            }
+
+            .portfolio-item {
+                height: 400px;
+            }
+
+            .portfolio-title {
+                font-size: 24px;
+            }
+
+            .portfolio-overlay {
+                padding: 30px;
+            }
+
+            .strengths-style1,
+            .strengths-style2 {
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
 
-            .logo-bars {
-                height: 60px;
+            .strengths-style3 {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
-            .bar {
-                width: 14px;
+            .strengths-wrapper {
+                padding: 0 20px;
             }
 
-            .bar:nth-child(1) { height: 60px; }
-            .bar:nth-child(2) { height: 42px; }
-            .bar:nth-child(3) { height: 27px; }
-            .bar:nth-child(4) { height: 18px; }
-            .bar:nth-child(5) { height: 33px; }
+            .strengths-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .strength-item {
+                border-right: none;
+                padding: 40px 30px;
+            }
+
+            .strength-item:nth-child(n) {
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .strength-item:last-child {
+                border-bottom: none;
+            }
+
+            .strengths-title h2 {
+                font-size: 32px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-
-    <div class="container">
-        <div class="logo-container">
-            <div class="logo-bars">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+    <!-- 네비게이션 -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <!-- 로고 이미지 사용 시: 아래 img 태그의 주석을 해제하고 src에 이미지 URL 입력 -->
+                <img src="./gray_gray.png" alt="Logo">
+                
+                <!-- 텍스트 로고 사용 시: 아래 코드 사용 -->
+                <!--<span class="logo-text">MY<span>BRAND</span></span> -->
+            </a>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <div class="logo-text">GRAYSTONE</div>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#strengths">Our Strengths</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <h1>홈페이지 준비중입니다</h1>
-        <p>더 나은 서비스로 찾아뵙겠습니다</p>
-
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+    <!-- 히어로 슬라이더 -->
+    <section class="hero-slider" id="home">
+        <div class="slide active">
+            <div class="slide-bg"></div>
+            <div class="slide-content">
+                <h1>워너 청담</h1>
+                <p>국내 최초 스카이가라지(Sky Garage) 시스템으로 슈퍼카를 집 안 거실에 주차할수 있는 시스템</p>
             </div>
         </div>
+        <div class="slide">
+            <div class="slide-bg"></div>
+            <div class="slide-content">
+                <h1>루시아 청담 546 더리버</h1>
+                <p>청담동내 최고 높이 랜드마크, 층당 한세대만 배치한 독점 구조, 파노라마 한강 조망권을 확보</p>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="slide-bg"></div>
+            <div class="slide-content">
+                <h1>에테르노 청담</h1>
+                <p>세계적인 건축가 라파엘 모네오가 디자인한 품격 높은 외관과 전세대 한강 조망이 가능한 테라스</p>
+            </div>
+        </div>
+        
+        <!-- 좌우 화살표 -->
+        <div class="slider-arrow prev">‹</div>
+        <div class="slider-arrow next">›</div>
+        
+        <div class="slider-controls">
+            <div class="slider-dot active" data-slide="0"></div>
+            <div class="slider-dot" data-slide="1"></div>
+            <div class="slider-dot" data-slide="2"></div>
+        </div>
+    </section>
 
-        <div class="contact-info">
-            문의사항이 있으시면 hyun23488@naver.com 으로 연락주세요
+    <!-- 콘텐츠 섹션 -->
+    <section class="content-section medium" id="about">
+        <div class="content-wrapper">
+            <h2>About Us</h2>
+            <div style="max-width: 900px; margin: 60px auto 0; text-align: center;">
+                <p style="font-size: 24px; line-height: 1.8; color: #333; font-weight: 300; margin-bottom: 30px;">
+                    그레이스톤자산관리는 <strong style="font-weight: 600;">하이엔드 주거 공간의 가치를 극대화</strong>하는<br>
+                    프리미엄 자산관리 전문기업입니다.
+                </p>
+                
+                <p style="font-size: 20px; line-height: 1.9; color: #666; font-weight: 300; margin-bottom: 25px;">
+                    하이엔드 주거시설은 보안, 의전, 발렛, 시설관리 모든 영역이<br>
+                    하나의 기준으로 움직여야 합니다.
+                </p>
+                <p style="font-size: 20px; line-height: 1.9; color: #666; font-weight: 300; margin-bottom: 25px;">
+                    체계적인 관리 시스템과 축적된 노하우로<br>
+                    고객의 소중한 자산을 안전하게 지키고 그 가치를 높입니다.
+                </p>
+                <!--
+                <p style="font-size: 20px; line-height: 1.9; color: #666; font-weight: 300;margin-bottom: 25px;">
+                    신뢰를 바탕으로 한 전문적인 서비스로<br>
+                    최상의 주거 환경과 생활 편의를 제공합니다.
+                </p>
+                -->
+                <p style="font-size: 24px; line-height: 1.9; color: #333; font-weight: 300;">
+                    대한민국 최상위 주거시설이 선택한 관리 회사. <strong style="font-weight: 600;">그레이스톤자산관리</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 강점 섹션  -->
+    <section class="content-section tall" id="strengths" style="background: #fff;">
+        <div class="strengths-wrapper">
+            <div class="strengths-title">
+                <h2>Our Strengths</h2>
+                <p>프리미엄 주택 관리의 새로운 기준</p>
+            </div>
+
+            <div class="strengths-grid">
+                <div class="strength-item">
+                    <div class="strength-number">01</div>
+                    <div class="strength-keyword">전문성</div>
+                    <div class="strength-description">10년 이상의 경험을 바탕으로 한 체계적이고 전문적인 관리</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">02</div>
+                    <div class="strength-keyword">프리미엄 서비스</div>
+                    <div class="strength-description">그레이스톤만의 최상급 서비스로 고객의 자산 가치를 극대화</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">03</div>
+                    <div class="strength-keyword">신뢰성</div>
+                    <div class="strength-description">투명한 운영과 검증된 관리 시스템으로 신뢰 확보</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">04</div>
+                    <div class="strength-keyword">신속 대응</div>
+                    <div class="strength-description">24시간 긴급 대응 및 즉각적인 문제 해결 시스템</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">05</div>
+                    <div class="strength-keyword">맞춤 솔루션</div>
+                    <div class="strength-description">고객별 특성에 맞춘 차별화된 관리 솔루션 제공</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">06</div>
+                    <div class="strength-keyword">디지털 관리</div>
+                    <div class="strength-description">최신 스마트 시스템을 활용한 효율적 자산 관리</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">07</div>
+                    <div class="strength-keyword">법률 자문</div>
+                    <div class="strength-description">전문 법률팀의 체계적인 법률 자문 서비스 제공</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">08</div>
+                    <div class="strength-keyword">의전, 도어 서비스</div>
+                    <div class="strength-description">입주민의 품격을 완성하는 맞춤형 의전 & 도어 서비스</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">09</div>
+                    <div class="strength-keyword">시설 유지보수</div>
+                    <div class="strength-description">정기 점검 및 예방 정비를 통한 완벽한 시설 관리</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">10</div>
+                    <div class="strength-keyword">보안 시스템</div>
+                    <div class="strength-description">사생활 보호를 최우선으로 한 보안서비스, 외부인 출입 통제</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">11</div>
+                    <div class="strength-keyword">컨시어지 서비스</div>
+                    <div class="strength-description">프리미엄 라이프스타일을 위한 전담 컨시어지 지원</div>
+                </div>
+                <div class="strength-item">
+                    <div class="strength-number">12</div>
+                    <div class="strength-keyword">발렛파킹 서비스</div>
+                    <div class="strength-description">도착부터 출차까지 완벽하게 관리되는 프라이빗 발렛 서비스</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section tall" id="portfolio">
+        <div class="content-wrapper">
+            <h2>Portfolio</h2>
+            <p>전문성과 혁신으로 완성한 프리미엄 주거 공간을 소개합니다</p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="https://www.hdec.kr/FileContents/EditorImg/20220602/20201014_%EC%97%90%ED%85%8C%EB%A5%B4%EB%85%B8%20%EC%B2%AD%EB%8B%B4_%ED%85%8C%EB%9D%BC%EC%8A%A4%20%EB%8F%99%EC%B8%A1%ED%88%AC%EC%8B%9C%EB%8F%84_01_770.jpg" alt="에테르노청담" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">에테르노청담</h3>
+                        <div class="portfolio-divider"></div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-info-text">
+                                <p class="location">서울시 강남구 청담동 한강변</p>
+                                <p>26세대 · 지하 3층, 지상 10층</p>
+                                <p>라파엘 모네오 설계 · 연예인 다수 거주</p>
+                            </div>
+                            <button class="portfolio-more-btn" data-project="eterno">더보기</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://skincareshop114.cafe24.com/wp-content/uploads/2024/03/15.jpg" alt="루시아청담546더리버" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">루시아청담546더리버</h3>
+                        <div class="portfolio-divider"></div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-info-text">
+                                <p class="location">서울시 강남구 청담동 도산대로</p>
+                                <p>26세대 · 전 세대 한강 조망</p>
+                                <p>랜드마크 설계 · 프리미엄 커뮤니티</p>
+                            </div>
+                            <button class="portfolio-more-btn" data-project="lucia">더보기</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <img src="https://www.harpersbazaar.co.kr/resources_old/online/org_online_image/7c134d6d-f437-4826-a55b-1078595bb489.jpg" alt="워너청담" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <h3 class="portfolio-title">워너청담</h3>
+                        <div class="portfolio-divider"></div>
+                        <div class="portfolio-info">
+                            <div class="portfolio-info-text">
+                                <p class="location">서울시 강남구 청담동</p>
+                                <p>16세대 · 스카이가라지 시스템</p>
+                                <p>슈퍼카 전용 주차 · 컨시어지 서비스</p>
+                            </div>
+                            <button class="portfolio-more-btn" data-project="warner">더보기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section short" id="contact">
+        <div class="content-wrapper">
+            <h2>Contact Us</h2>
+            <p>프로젝트 문의나 협업 제안이 있으시다면 언제든지 연락 주세요. 최선을 다해 답변드리겠습니다.</p>
+        </div>
+    </section>
+
+    <!-- 팝업 모달 -->
+    <div class="popup-modal" id="popupModal">
+        <div class="popup-content">
+            <div class="popup-close" id="popupClose">×</div>
+            <div class="popup-slider" id="popupSlider"></div>
+            <div class="popup-arrow prev" id="popupPrev">‹</div>
+            <div class="popup-arrow next" id="popupNext">›</div>
+            <div class="popup-dots" id="popupDots"></div>
         </div>
     </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-top">
+                <div class="footer-company">
+                    <h3>(주)그레이스톤자산관리</h3>
+                    <div class="footer-info">
+                        <p>대표이사 : 현정원</p>
+                        <p>전화번호 : 010-5178-7724</p>
+                        <p>사업자등록번호 : 703-81-02367</p>
+                        <p>서울특별시 강남구 언주로 563, 102동 211호(역삼동, 원에디션강남)</p>
+                        <p>E-Mail : hyun23488@naver.com</p>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <a href="#" aria-label="네이버">N</a>
+                    <a href="#" aria-label="인스타그램">I</a>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <p>©GrayStone Asset Management. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 슬라이더 자동 재생
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const totalSlides = slides.length;
+        const heroSlider = document.querySelector('.hero-slider');
+        const prevArrow = document.querySelector('.slider-arrow.prev');
+        const nextArrow = document.querySelector('.slider-arrow.next');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // 5초마다 자동 슬라이드
+        let autoSlide = setInterval(nextSlide, 5000);
+
+        function resetAutoSlide() {
+            clearInterval(autoSlide);
+            autoSlide = setInterval(nextSlide, 5000);
+        }
+
+        // 화살표 클릭 이벤트 (PC에서는 제거됨)
+        prevArrow.addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        nextArrow.addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        // 닷 클릭 이벤트 - PC와 모바일 모두 작동
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                resetAutoSlide();
+            });
+        });
+
+        // 터치 이벤트 (모바일 플리킹)
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        heroSlider.addEventListener('touchstart', handleTouchStart, { passive: true });
+        heroSlider.addEventListener('touchend', handleTouchEnd, { passive: true });
+        heroSlider.addEventListener('mousedown', handleTouchStart);
+        heroSlider.addEventListener('mouseup', handleTouchEnd);
+
+        function handleTouchStart(e) {
+            const touch = e.type === 'mousedown' ? e : e.changedTouches[0];
+            touchStartX = touch.screenX || touch.clientX;
+            touchStartY = touch.screenY || touch.clientY;
+        }
+
+        function handleTouchEnd(e) {
+            const touch = e.type === 'mouseup' ? e : e.changedTouches[0];
+            touchEndX = touch.screenX || touch.clientX;
+            touchEndY = touch.screenY || touch.clientY;
+            handleSwipe();
+        }
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diffX = touchStartX - touchEndX;
+            const diffY = Math.abs(touchStartY - touchEndY);
+            
+            // 수평 스와이프가 수직 스와이프보다 클 때만 작동
+            if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY) {
+                if (diffX > 0) {
+                    // 왼쪽으로 스와이프 - 다음 슬라이드
+                    nextSlide();
+                } else {
+                    // 오른쪽으로 스와이프 - 이전 슬라이드
+                    prevSlide();
+                }
+                resetAutoSlide();
+            }
+        }
+
+        // 키보드 화살표 키 지원
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                resetAutoSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                resetAutoSlide();
+            }
+        });
+
+        // 스크롤 시 네비게이션 표시
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const currentScroll = window.pageYOffset;
+                    
+                    // 스크롤 시 배경 추가
+                    if (currentScroll > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    
+                    lastScroll = currentScroll;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 포트폴리오 팝업 데이터
+        const portfolioData = {
+            eterno: {
+                title: '에테르노청담',
+                images: [
+                    './et-1.jpg?w=1200&q=80',
+                    './et-2.jpg?w=1200&q=80',
+                    './et-3.jpg?w=1200&q=80'
+
+                ]
+            },
+            lucia: {
+                title: '루시아청담546더리버',
+                images: [
+                    './luxia-1.jpg?w=1200&q=80',
+                    './luxia-2.jpg?w=1200&q=80',
+                    './luxia-3.jpg?w=1200&q=80',
+                    './luxia-4.jpg?w=1200&q=80',
+                    './luxia-5.jpg?w=1200&q=80'
+                ]
+            },
+            warner: {
+                title: '워너청담',
+                images: [
+                         
+                    './oner-1.jpg?w=1200&q=80',
+                    './oner-2.jpg?w=1200&q=80',
+                    './oner-3.jpg?w=1200&q=80',
+                    './oner-4.jpg?w=1200&q=80',
+                    './oner-5.jpg?w=1200&q=80'
+
+                ]
+            }
+        };
+
+        // 팝업 관련 변수
+        const popupModal = document.getElementById('popupModal');
+        const popupClose = document.getElementById('popupClose');
+        const popupSlider = document.getElementById('popupSlider');
+        const popupDots = document.getElementById('popupDots');
+        const popupPrev = document.getElementById('popupPrev');
+        const popupNext = document.getElementById('popupNext');
+        let currentPopupSlide = 0;
+        let currentProject = null;
+
+        // 더보기 버튼 클릭
+        document.querySelectorAll('.portfolio-more-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const project = e.target.dataset.project;
+                openPopup(project);
+            });
+        });
+
+        function openPopup(project) {
+            currentProject = project;
+            const data = portfolioData[project];
+            currentPopupSlide = 0;
+
+            // 슬라이드 생성
+            popupSlider.innerHTML = '';
+            data.images.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = `popup-slide ${index === 0 ? 'active' : ''}`;
+                slide.innerHTML = `<img src="${img}" alt="${data.title} ${index + 1}">`;
+                popupSlider.appendChild(slide);
+            });
+
+            // 닷 생성
+            popupDots.innerHTML = '';
+            data.images.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `popup-dot ${index === 0 ? 'active' : ''}`;
+                dot.addEventListener('click', () => showPopupSlide(index));
+                popupDots.appendChild(dot);
+            });
+
+            popupModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup() {
+            popupModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showPopupSlide(n) {
+            const slides = popupSlider.querySelectorAll('.popup-slide');
+            const dots = popupDots.querySelectorAll('.popup-dot');
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentPopupSlide = (n + slides.length) % slides.length;
+            slides[currentPopupSlide].classList.add('active');
+            dots[currentPopupSlide].classList.add('active');
+        }
+
+        popupClose.addEventListener('click', closePopup);
+        popupModal.addEventListener('click', (e) => {
+            if (e.target === popupModal) closePopup();
+        });
+
+        popupPrev.addEventListener('click', () => showPopupSlide(currentPopupSlide - 1));
+        popupNext.addEventListener('click', () => showPopupSlide(currentPopupSlide + 1));
+
+        // ESC 키로 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && popupModal.classList.contains('active')) {
+                closePopup();
+            }
+        });
+
+        // 햄버거 메뉴 토글
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // 메뉴 클릭 시 닫기
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // 메뉴 외부 클릭 시 닫기
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // 모바일 포트폴리오 아이템 클릭 토글
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        portfolioItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 모바일에서만 토글 작동
+                if (window.innerWidth <= 768) {
+                    // 다른 아이템들의 active 제거
+                    portfolioItems.forEach(other => {
+                        if (other !== this) {
+                            other.classList.remove('active');
+                        }
+                    });
+                    // 현재 아이템 토글
+                    this.classList.toggle('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
